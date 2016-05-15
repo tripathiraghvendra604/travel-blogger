@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
@@ -50,3 +50,23 @@ def login_user(request):
 
 def home(request):
     return render(request, 'blogger/home.html')
+
+def posts_create(request):
+    return HttpResponse('create')
+
+
+
+def posts_detail(request):
+    return HttpResponse('detail')
+
+
+def posts_list(request):
+    return HttpResponse('list')
+
+
+def posts_update(request):
+    return HttpResponse('update')
+
+
+def posts_delete(request):
+    return HttpResponse('delete')
