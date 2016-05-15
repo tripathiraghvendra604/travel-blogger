@@ -6,6 +6,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .forms import LoginForm
+from .models import Post
 # Create your views here.
 
 
@@ -42,11 +43,6 @@ def login_user(request):
     print 'get request'
     return render(request, 'blogger/login.html', {'form': form})
 
-#
-# def logout_user(request):
-#         logout(request)
-#         return HttpResponseRedirect('/login')
-
 
 def home(request):
     return render(request, 'blogger/home.html')
@@ -55,13 +51,18 @@ def posts_create(request):
     return HttpResponse('create')
 
 
-
 def posts_detail(request):
     return HttpResponse('detail')
 
 
 def posts_list(request):
-    return HttpResponse('list')
+    queryset = Post.objects.all()
+    context = {
+        'title': 'List',
+        'object_list': queryset,
+    }
+
+    return render(request, 'blogger/list.html', context)
 
 
 def posts_update(request):
