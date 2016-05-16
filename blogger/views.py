@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
@@ -52,7 +52,12 @@ def posts_create(request):
 
 
 def posts_detail(request):
-    return HttpResponse('detail')
+    instance =  get_object_or_404(Post, id=2)
+    context = {
+        'title': instance.title,
+        'instance': instance
+    }
+    return render(request, 'blogger/post_detail.html', context)
 
 
 def posts_list(request):
