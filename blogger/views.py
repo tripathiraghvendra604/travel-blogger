@@ -77,8 +77,18 @@ def posts_list(request):
     return render(request, 'blogger/list.html', context)
 
 
-def posts_update(request):
-    return HttpResponse('update')
+def posts_update(request, id):
+    instance = get_object_or_404(Post, id=id)
+    form = PostForm(request.POST, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+    context = {
+        'title': instance.title,
+        'instance': instance,
+        'form': form,
+    }
+    return render(request, 'blogger/post_form.html', context)
 
 
 def posts_delete(request):
