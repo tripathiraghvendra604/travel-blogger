@@ -52,6 +52,8 @@ def posts_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        return HttpResponseRedirect('/')
+
     context = {
         'form': form,
     }
@@ -83,6 +85,7 @@ def posts_update(request, id):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        return HttpResponseRedirect('/')
     context = {
         'title': instance.title,
         'instance': instance,
