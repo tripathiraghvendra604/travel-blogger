@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .forms import LoginForm
+from .forms import LoginForm, PostForm
 from .models import Post
 # Create your views here.
 
@@ -48,7 +48,14 @@ def home(request):
     return render(request, 'blogger/home.html')
 
 def posts_create(request):
-    return HttpResponse('create')
+    form = PostForm(request.POST)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+    context = {
+        'form': form,
+    }
+    return render(request, 'blogger/post_form.html', context)
 
 
 def posts_detail(request, id):
