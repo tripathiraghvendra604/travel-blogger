@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
@@ -52,8 +52,11 @@ def posts_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        messages.success(request,'Successfully created')
         return HttpResponseRedirect('/')
 
+    else:
+        messages.error(request,'Not Successfully Created')
     context = {
         'form': form,
     }
@@ -85,7 +88,7 @@ def posts_update(request, id):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect('/')
+
     context = {
         'title': instance.title,
         'instance': instance,
@@ -94,5 +97,7 @@ def posts_update(request, id):
     return render(request, 'blogger/post_form.html', context)
 
 
-def posts_delete(request):
-    return HttpResponse('delete')
+def posts_delete(request, id):
+    instance = get_object_or_404(Post, id=id)
+    instance.delete()
+    return HttpResponseRedirect('/')
