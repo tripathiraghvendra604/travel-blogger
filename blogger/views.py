@@ -51,8 +51,8 @@ def posts_create(request):
     return HttpResponse('create')
 
 
-def posts_detail(request):
-    instance =  get_object_or_404(Post, id=2)
+def posts_detail(request, id):
+    instance =  get_object_or_404(Post, id=id)
     context = {
         'title': instance.title,
         'instance': instance
