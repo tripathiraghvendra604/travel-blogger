@@ -73,7 +73,7 @@ def posts_detail(request, id):
 
 
 def posts_list(request):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-timestamp')
     context = {
         'title': 'List',
         'object_list': queryset,
