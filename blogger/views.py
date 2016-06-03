@@ -47,8 +47,9 @@ def login_user(request):
 def home(request):
     return render(request, 'blogger/home.html')
 
+
 def posts_create(request):
-    form = PostForm(request.POST)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -84,7 +85,7 @@ def posts_list(request):
 
 def posts_update(request, id):
     instance = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST, instance=instance)
+    form = PostForm(request.POST, request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()

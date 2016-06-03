@@ -4,6 +4,10 @@
     {% for obj in object_list %}
 
         <a href="{% url 'detail'  id=obj.id%}"> {{ obj.title }} </a><br/>
+        {% if obj.image %}
+                <img src="{{ obj.image.url }}"  /><br>
+        {% endif %}
+
         {{ obj.content }}<br/>
         {{ obj.timestamp }}<br/>
         {{ obj.updated }}<br/>
