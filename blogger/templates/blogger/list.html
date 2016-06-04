@@ -9,8 +9,8 @@
         {% endif %}
 
         {{ obj.content }}<br/>
-        {{ obj.timestamp }}<br/>
-        {{ obj.updated }}<br/>
+        {{ obj.timestamp | timesince }}<br/>
+        <p>upadated on {{ obj.updated }}<br/>
         {{ obj.id }}<br/><hr/>
     {% endfor %}
 

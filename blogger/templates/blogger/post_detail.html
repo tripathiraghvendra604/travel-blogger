@@ -5,8 +5,10 @@
         {% endif %}
         {{ instance.title }}<br/>
         {{ instance.content }}<br/>
-        {{ instance.timestamp }}<br/>
-        {{ instance.updated }}<br/>
+        {{ instance.timestamp | timesince}}<br/>
+        <p>Updated On {{ instance.updated | timesince}}<br/></p>
         {{ instance.id }}<br/><hr/>
+<div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div><br/><hr/>
+    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
 
 {% endblock %}
